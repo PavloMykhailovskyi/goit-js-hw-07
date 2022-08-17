@@ -3,7 +3,7 @@ import { galleryItems } from "./gallery-items.js";
 
 console.log(galleryItems);
 
-const gallery = document.querySelector(".gallery");
+const galleryHolder = document.querySelector(".gallery");
 const galleryItemsMarkup = createGalleryItemsMarkup(galleryItems);
 
 function createGalleryItemsMarkup(galleryItems) {
@@ -14,22 +14,29 @@ function createGalleryItemsMarkup(galleryItems) {
         original,
         description,
       }) => `<a class="gallery__item" href="${preview}">
-  <img class="gallery__image" src="${original}" alt="${description}" title="${description}" />
+  <img class="gallery__image" src="${original}" alt="${description}" />
 </a>`
     )
     .join("");
 }
 
-gallery.insertAdjacentHTML("beforeend", galleryItemsMarkup);
-gallery.addEventListener("click", onGallery);
+galleryHolder.insertAdjacentHTML("beforeend", galleryItemsMarkup);
+// gallery.addEventListener("click", onGallery);
 
-function onGallery(event) {
-  event.preventDefault();
-  if (!event.target.classList.contains("gallery__image")) {
-    return;
-  }
-  let gallery = new SimpleLightbox(".gallery a");
-  gallery.on("show.simplelightbox", function () {
-    gallery.defaultOptions.captionDelay = 250;
-  });
-}
+// function onGallery(event) {
+//   event.preventDefault();
+//   if (!event.target.classList.contains("gallery__image")) {
+//     return;
+//   }
+//   let gallery = new SimpleLightbox(".gallery a");
+//   gallery.on("show.simplelightbox", function () {
+//     gallery.defaultOptions.captionDelay = 250;
+//   });
+// }
+
+let gallery = new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionDelay: 250,
+});
+// gallery.defaultOptions.captionDelay = 250;
+// gallery.defaultOptions.captionData = "alt";
